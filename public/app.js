@@ -5,12 +5,17 @@ document.addEventListener("DOMContentLoaded", event => {
     // accessing firebase database
     const db = firebase.firestore();
     const myPost = db.collection('potts').doc('firstpost');
-    myPost.get()
-        .then(doc => {
-            const data = doc.data();
-            document.write( data.title + '<br>')
-        })
-
+    // myPost.get()
+    //     .then(doc => {
+    //         const data = doc.data();
+    //         document.write( data.title + '<br>')
+    //     })
+    
+    // real time updates
+    myPost.onSnapshot(doc => {
+        const data = doc.data();
+        document.write( data.title + '<br>')
+    })
 })
 
 // user authentication
