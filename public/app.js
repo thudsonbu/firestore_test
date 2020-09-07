@@ -5,17 +5,31 @@ document.addEventListener("DOMContentLoaded", event => {
     // accessing firebase database
     const db = firebase.firestore();
     const myPost = db.collection('potts').doc('firstpost');
-    // myPost.get()
-    //     .then(doc => {
-    //         const data = doc.data();
-    //         document.write( data.title + '<br>')
-    //     })
+
+    // get sinle document
+    myPost.get()
+        .then(doc => {
+            const data = doc.data();
+            document.write( data.title + '<br>')
+        })
     
     // real time updates
     myPost.onSnapshot(doc => {
         const data = doc.data();
         document.write( data.title + '<br>')
     })
+
+    const query = productsRef.where('price', '==', 10)
+    // can also use orderby to sort return documents
+
+    // querry from collection
+    query.get()
+        .then(products => {
+            products.forEach(doc => {
+                data = doc.data()
+                document.write(`${data.name} at ${data.price} <br>`)
+            })
+        })
 })
 
 // user authentication
